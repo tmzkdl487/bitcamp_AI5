@@ -48,13 +48,16 @@ loss = model.evaluate(x_test, y_test, verbose=1)
 
 y_pred = model.predict(x_test)
 
-print("60_cifar100_로스는 : ", loss[0])
+print("76_cifar100_로스는 : ", loss[0])
 print("ACC : ", round(loss[1], 3))
 print("걸린시간: ", round(end_time - start_time, 2), "초")
 
 # model.add(Flatten)
-# 60_cifar10_로스는 :  3.3383734226226807
+# 76_cifar100_로스는 :  3.3383734226226807
 # ACC :  0.178
 # 걸린시간:  741.67 초
 
-# model.add(Flatten)
+# model.add(GlobalAveragePooling2D())
+# 76_cifar100_로스는 :  3.3383729457855225
+# ACC :  0.178
+# 걸린시간:  739.59 초

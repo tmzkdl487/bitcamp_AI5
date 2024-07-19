@@ -53,6 +53,9 @@ print("ACC : ", round(loss[1], 3))
 print("걸린시간: ", round(end_time - start_time, 2), "초")
 
 # model.add(Flatten)
+# 60_cifar10_로스는 :  1.2988202571868896
+# ACC :  0.544
+# 걸린시간:  1458.1 초
 
 # model.add(GlobalAveragePooling2D())
 # 60_cifar10_로스는 :  1.2988202571868896

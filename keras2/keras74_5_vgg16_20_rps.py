@@ -2,7 +2,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPooling2D 
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
-
+from tensorflow.keras.applications import VGG16
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, accuracy_score
@@ -79,8 +79,16 @@ print("걸린시간: ", round(end_time - start_time, 2), "초")
 # 3. 가중치를 동결하고 훈련시켰을때, tranable=False
 ####### 위에 2, 3번할때는 time 체크 할 것.
 
-# 1. 이전에 본인이 한 최상의 결과와. 
+# loss : 0.013397577218711376
+# acc : 0.998
+# acc_score : 0.998015873015873
 
-# 2. 가중치를 동결하지 않고 훈련시켰을때, tranable=True, (디폴트)
+# True
+# loss : 1.0425083637237549
+# acc : 0.4405
+# acc_score : 0.44047619047619047
 
-# 3. 가중치를 동결하고 훈련시켰을때, tranable=False
+# False
+# loss : 1.2337721273070201e-05
+# acc : 1.0
+# acc_score : 1.0

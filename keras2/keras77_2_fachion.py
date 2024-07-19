@@ -33,7 +33,8 @@ y_test = ohe.fit_transform(y_test)
 model = Sequential()
 model.add(Conv1D(10, kernel_size=2, input_shape=(28, 28))) # timesteps, features
 model.add(Conv1D(10, 2))
-model.add(GlobalAveragePooling2D())
+model.add(Flatten())
+# model.add(GlobalAveragePooling2D())
 model.add(Dense(20)) # RNN은 Dense와 바로 연결이 가능하다.
 model.add(Dense(15, activation='relu'))
 model.add(Dense(10))
@@ -54,5 +55,10 @@ loss = model.evaluate(x_test, y_test, verbose=1)
 
 y_pred = model.predict(x_test)
 
-print("로스는 : ", round(loss[0], 3))
+print("77_fachion_로스는 : ", round(loss[0], 3))
 print("걸린시간 : ", round(end_time - start_time, 2), "초")
+
+# model.add(Flatten())
+
+
+# model.add(GlobalAveragePooling2D())

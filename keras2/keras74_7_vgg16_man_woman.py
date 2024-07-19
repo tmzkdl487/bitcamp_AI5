@@ -2,6 +2,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from sklearn.metrics import accuracy_score
 from tensorflow.keras.applications import VGG16
 from tensorflow.keras.optimizers import Adam
 from sklearn.model_selection import train_test_split
@@ -18,20 +19,24 @@ np.random.seed(337)
 np_path = 'c:/ai5/_data/_save_npy/'  # npy 데이터 경로 설정
 
 # 개별 파일 불러오기
-x_train = np.load(np_path + 'keras45_gender_04_x_train.npy')
-y_train = np.load(np_path + 'keras45_gender_04_y_train.npy')
-x_test = np.load(np_path + 'keras45_gender_04_x_test.npy')
-y_test = np.load(np_path + 'keras45_gender_04_y_test.npy')
+# x_train = np.load(np_path + 'keras45_gender_04_x_train.npy')
+# y_train = np.load(np_path + 'keras45_gender_04_y_train.npy')
+# x_test = np.load(np_path + 'keras45_gender_04_x_test.npy')
+# y_test = np.load(np_path + 'keras45_gender_04_y_test.npy')
 
-x_train = np.repeat(x_train, 3, axis=-1)
-x_test = np.repeat(x_test, 3, axis=-1)
+x_train2 = np.load(np_path + 'keras45_07_gender_x_train.npy')
+y_train2 = np.load(np_path + 'keras45_07_gender_y_train.npy')
 
-# 데이터 스케일링
-x_train = x_train / 255.0
-x_test = x_test / 255.0
+# x_train = np.repeat(x_train, 3, axis=-1)
+# x_test = np.repeat(x_test, 3, axis=-1)
+
+# # 데이터 스케일링
+# x_train = x_train / 255.0
+# x_test = x_test / 255.0
 
 # 데이터 분할
-x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, train_size=0.75, random_state=337)
+# x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, train_size=0.75, random_state=337)
+x_train, x_test, y_train, y_test = train_test_split(x_train2, y_train2, test_size=0.2, random_state=5289)
 
 # 2. VGG16 모델 설정
 vgg16 = VGG16(include_top=False, input_shape=(100, 100, 3))
@@ -61,6 +66,7 @@ loss, acc = model.evaluate(x_test, y_test, verbose=1)
 # 5. 예측
 y_pred = model.predict(x_test)
 y_pred = np.round(y_pred).astype(int)
+acc = accuracy_score(y_test, y_pred)
 
 # 결과 출력
 print("man_woman_로스는 : ", loss)
@@ -89,3 +95,13 @@ print("걸린시간: ", round(end_time - start_time, 2), "초")
 #   File "C:\anaconda3\envs\tf118gpu\lib\site-packages\tensorflow\python\framework\constant_op.py", line 106, in convert_to_eager_tensor
 #     return ops.EagerTensor(value, ctx.device_name, dtype)
 # tensorflow.python.framework.errors_impl.InternalError: Failed copying input tensor from /job:localhost/replica:0/task:0/device:CPU:0 to /job:localhost/replica:0/task:0/device:GPU:0 in order to run _EagerConst: Dst tensor is not initialized.
+# 나는 에러나서 호정님 결과
+
+# loss : 0.21999025344848633
+# acc : 0.90909
+# accuracy_score : 0.9090909090909091
+
+# True
+# loss : 0.25176364183425903
+# acc : 0.90099
+# accuracy_score : 0.9009937430990063

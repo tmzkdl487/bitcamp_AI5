@@ -45,6 +45,7 @@ vgg16.trainable = True  # VGG16의 가중치 동결
 # 새 모델 정의
 model = Sequential()
 model.add(vgg16)
+# model.add(Flatten())
 model.add(GlobalAveragePooling2D())
 model.add(Dense(64, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
@@ -68,6 +69,14 @@ y_pred = model.predict(x_test)
 y_pred = np.round(y_pred).astype(int)
 
 # 결과 출력
-print("cat_dog_로스는 : ", loss)
+print("76_cat_dog_로스는 : ", loss)
 # print("ACC : ", round(loss[1], 3))
 print("걸린시간: ", round(end_time - start_time, 2), "초")
+
+# model.add(Flatten())
+# 76_cat_dog_로스는 :  0.6934213042259216
+# 걸린시간:  348.79 초
+
+# model.add(GlobalAveragePooling2D())
+# 76_cat_dog_로스는 :  0.6942720413208008
+# 걸린시간:  351.6 초

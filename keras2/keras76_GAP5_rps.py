@@ -52,15 +52,15 @@ vgg16.trainable = True  # False # 동결건조
 
 model = Sequential()
 model.add(vgg16)
-model.add(Flatten())
-# model.add(GlobalAveragePooling2D())
+# model.add(Flatten())
+model.add(GlobalAveragePooling2D())
 model.add(Dense(10, activation='relu'))
-model.add(Dense(3, activation='sigmoid'))
+model.add(Dense(3, activation='softmax'))
 
 model.summary()
 
 # 3. 컴파일, 훈련
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
 start_time = time.time()
 
 model.fit(x_train, y_train, epochs=10, batch_size=1, validation_split=0.3, verbose=1)
@@ -75,6 +75,11 @@ print("ACC : ", round(loss[1], 3))
 print("걸린시간: ", round(end_time - start_time, 2), "초")
 
 # model.add(Flatten())
-
+# 76_rps_로스는 :  1.0994703769683838
+# ACC :  0.313
+# 걸린시간:  150.71 초
 
 # model.add(GlobalAveragePooling2D())
+# 76_rps_로스는 :  1.0985805988311768
+# ACC :  0.331
+# 걸린시간:  147.82 초

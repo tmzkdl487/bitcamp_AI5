@@ -67,3 +67,6 @@ print("걸린시간: ", round(end_time - start_time, 2), "초")
 # 걸린시간:  56.34 초
 
 # model.add(GlobalAveragePooling2D())
+# 76_horse_로스는 :  0.6978776454925537
+# ACC :  0.471
+# 걸린시간:  55.04 초
