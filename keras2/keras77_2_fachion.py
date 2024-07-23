@@ -1,6 +1,6 @@
 from tensorflow.keras.datasets import mnist, fashion_mnist
 from tensorflow.keras.models import Sequential, load_model, Model
-from tensorflow.keras.layers import Dense, Input, Conv2D, Flatten, Dropout, MaxPooling2D, Conv1D, MaxPool1D, GlobalAveragePooling2D   
+from tensorflow.keras.layers import Dense, Input, Conv2D, Flatten, Dropout, MaxPooling2D, Conv1D, MaxPool1D, GlobalAveragePooling1D   
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 from tensorflow.keras.utils import to_categorical
 
@@ -22,23 +22,32 @@ x_train = x_train/255.
 x_test = x_test/255.
 # print(np.max(x_train), np.min(x_train)) # 1.0 0.0
 
-from sklearn.preprocessing import OneHotEncoder
+# from sklearn.preprocessing import OneHotEncoder
+# ohe = OneHotEncoder(sparse=False)
+# y_train = y_train.reshape(-1,1)
+# y_test = y_test.reshape(-1, 1)
+# y_train = ohe.fit_transform(y_train)
+# y_test = ohe.fit_transform(y_test)
+
+# 데이터 차원 변경 (Conv1D에 맞게)
+x_train = x_train.reshape(x_train.shape[0], 28, 28)
+x_test = x_test.reshape(x_test.shape[0], 28, 28)
+
+# One-Hot-Encoding
 ohe = OneHotEncoder(sparse=False)
-y_train = y_train.reshape(-1,1)
-y_test = y_test.reshape(-1, 1)
-y_train = ohe.fit_transform(y_train)
-y_test = ohe.fit_transform(y_test)
+y_train = ohe.fit_transform(y_train.reshape(-1, 1))
+y_test = ohe.fit_transform(y_test.reshape(-1, 1))
 
 #2. Conv1D 모델
 model = Sequential()
 model.add(Conv1D(10, kernel_size=2, input_shape=(28, 28))) # timesteps, features
 model.add(Conv1D(10, 2))
-model.add(Flatten())
-# model.add(GlobalAveragePooling2D())
+# model.add(Flatten())
+model.add(GlobalAveragePooling2D())
 model.add(Dense(20)) # RNN은 Dense와 바로 연결이 가능하다.
 model.add(Dense(15, activation='relu'))
 model.add(Dense(10))
-model.add(Dense(100))
+model.add(Dense(10, activation='softmax'))
 
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam', 
@@ -59,6 +68,7 @@ print("77_fachion_로스는 : ", round(loss[0], 3))
 print("걸린시간 : ", round(end_time - start_time, 2), "초")
 
 # model.add(Flatten())
+# 77_fachion_로스는 :  0.025
+# 걸린시간 :  4.97 초
 
-
-# model.add(GlobalAveragePooling2D())
+# model.add(GlobalAveragePooling2D()) 

@@ -17,24 +17,21 @@ np.random.seed(337)
 # 1. 데이터 불러오기
 np_path = 'c:/ai5/_data/_save_npy/'  # npy 데이터 경로 설정
 
-x_train2 = np.load(np_path + 'keras45_07_gender_x_train.npy')
-y_train2 = np.load(np_path + 'keras45_07_gender_y_train.npy')
-
 # # 개별 파일 불러오기
-# x_train = np.load(np_path + 'keras45_gender_04_x_train.npy')
-# y_train = np.load(np_path + 'keras45_gender_04_y_train.npy')
-# x_test = np.load(np_path + 'keras45_gender_04_x_test.npy')
-# y_test = np.load(np_path + 'keras45_gender_04_y_test.npy')
+x_train = np.load(np_path + 'keras45_gender_04_x_train.npy')
+y_train = np.load(np_path + 'keras45_gender_04_y_train.npy')
+x_test = np.load(np_path + 'keras45_gender_04_x_test.npy')
+y_test = np.load(np_path + 'keras45_gender_04_y_test.npy')
 
 # x_train = np.repeat(x_train, 3, axis=-1)
 # x_test = np.repeat(x_test, 3, axis=-1)
 
 # 데이터 스케일링
-# x_train = x_train / 255.0
-# x_test = x_test / 255.0
+x_train = x_train / 255.0
+x_test = x_test / 255.0
 
 # 데이터 분할
-x_train, x_val, y_train, y_val = train_test_split(x_train2, y_train2, train_size=0.75, random_state=337)
+x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, train_size=0.75, random_state=337)
 
 # 2. VGG16 모델 설정
 vgg16 = VGG16(include_top=False, input_shape=(100, 100, 3))
@@ -55,7 +52,7 @@ model.compile(loss='binary_crossentropy', optimizer=Adam(learning_rate=0.0001), 
 
 # 훈련 시작
 start_time = time.time()
-history = model.fit(x_train, y_train, epochs=5, batch_size=1, validation_data=(x_val, y_val), 
+history = model.fit(x_train, y_train, epochs=1, batch_size=1, validation_data=(x_val, y_val), 
                      verbose=1)
 end_time = time.time()
 
