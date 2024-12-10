@@ -17,6 +17,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression # <- 분류 모델
 from sklearn.ensemble import RandomForestClassifier, BaggingClassifier, VotingClassifier
+from sklearn.ensemble import StackingClassifier
 
 from xgboost import XGBClassifier
 from catboost import CatBoostClassifier
@@ -59,41 +60,20 @@ xgb = XGBClassifier()  # 회귀 모델로 변경
 rf = RandomForestClassifier()  # 회귀 모델로 변경
 cat = CatBoostClassifier(verbose=0)  # 회귀 모델로 변경
 
-train_list = []
-test_list = []
+model = StackingClassifier(
+    estimators=[('XGB', xgb), ('RF', rf), ('CAT', cat)],  # 'estimators'로 수정
+    final_estimator=CatBoostClassifier(verbose=0),       # 'final_estimator'로 수정
+    n_jobs=-1,
+    cv=5,
+)
 
-models = [xgb, rf, cat]
+#3. 훈련
+model.fit(x_train, y_train)
 
-for model in models : 
-    model.fit(x_train, y_train)
-    y_predict = model.predict(x_train)
-    y_test_predict = model. predict(x_test)
-    
-    train_list.append(y_predict)
-    test_list.append(y_test_predict)
-    
-    score = r2_score(y_test, y_test_predict)
-    class_name = model.__class__.__name__
-    print('{0} ACC : {1:.4f}'.format(class_name, score))
-    
-x_train_new = np.array(train_list).T
-print(x_train_new.shape)    # (132027, 3)
+#4. 평가, 예측
+y_pred = model.predict(x_test)
+print('model.score : ', model.score(x_test, y_test))
+print('스태킹 ACC : ', accuracy_score(y_test, y_pred))
 
-x_test_new = np.array(test_list).T
-print(x_test_new.shape) # (33007, 3) 
-
-#2. 모델
-model2 = CatBoostClassifier(verbose=0)
-model2.fit(x_train_new, y_train)
-
-y_pred = model2.predict(x_test_new)
-
-score2 = r2_score(y_test, y_pred)
-
-print("스태킹결과 : ", score2)  
-
-# XGBClassifier ACC : 0.1768
-# RandomForestClassifier ACC : 0.1442
-# CatBoostClassifier ACC : 0.1922
-
-# 스태킹결과 :  0.14424441432746127
+# model.score :  0.8643924016117793
+# 스태킹 ACC :  0.8643924016117793 
