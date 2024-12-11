@@ -50,3 +50,6 @@ model.fit(x_train, y_train)
 y_pred = model.predict(x_test)
 print('model.score : ', model.score(x_test, y_test))
 print('스태킹 ACC : ', r2_score(y_test, y_pred))
+
+# model.score :  0.4009974050363214
+# 스태킹 ACC :  0.4009974050363214

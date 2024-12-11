@@ -5,7 +5,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from xgboost import XGBClassifier, XGBRegressor
 from sklearn.metrics import accuracy_score, r2_score
-from bayes_opt import BayesianOptimization
 import time
 
 from sklearn.decomposition import PCA
@@ -14,6 +13,8 @@ import warnings
 warnings.filterwarnings('ignore')
 
 from catboost import CatBoostRegressor, CatBoostClassifier
+from xgboost import XGBClassifier
+from sklearn.ensemble import RandomForestClassifier, StackingClassifier
 
 #1. 데이터
 x, y = load_digits(return_X_y=True)
@@ -51,3 +52,6 @@ model.fit(x_train, y_train)
 y_pred = model.predict(x_test)
 print('model.score : ', model.score(x_test, y_test))
 print('스태킹 ACC : ', accuracy_score(y_test, y_pred))
+
+# model.score :  0.9722222222222222
+# 스태킹 ACC :  0.9722222222222222

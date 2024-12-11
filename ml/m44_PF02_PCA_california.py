@@ -55,3 +55,5 @@ y_pred = model.predict(x_test)
 print('model.score : ', model.score(x_test, y_test))
 print('스태킹 ACC : ', r2_score(y_test, y_pred))
 
+# model.score :  0.7491145279175513
+# 스태킹 ACC :  0.7491145279175513
