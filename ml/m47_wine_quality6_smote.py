@@ -1,3 +1,6 @@
+# [맹그러봐] 스모트 써서 비교해봐!!!
+# y 클래스 7개까지 그대로
+
 # m47_wine_quality1_선생님버전.py 카피
 
 import numpy as np
@@ -14,11 +17,9 @@ warnings.filterwarnings('ignore')
 
 path = 'C:/ai5/_data/kaggle/wine/wine_quality/'
 
-# [맹그러봐 ] : y는 quality
-
-#1. 데이터
 random_state= 96
 
+#1. 데이터
 train_csv = pd.read_csv(path + "train.csv", index_col=0)
 test_csv = pd.read_csv(path + "test.csv", index_col=0)
 
@@ -50,62 +51,45 @@ train_csv['type'] = aaa
 # print(train_csv.info())       #  데이터프레임의 전체 구조와 요약 정보를 보여줌
 
 x = train_csv.drop(['quality'], axis=1)
-y = train_csv['quality']
-
-# print(x.shape)  # (5497, 12)
-# print(y.shape)  # (5497,)
-
-# y = y-3 # 왜 라벨인코더 썻어? ㅋㅋㅋ
-
-########################################################################################
-# [실습] y의 클래스를 7개에서 5 ~ 3개로 줄여서 성능을 비교.
-########################################################################################
-y = y.copy()    # 메모리 안전빵 알아서 참고 하고.
-
-## 힌트: for문 돌리면 되겠지?
-
-for i, v in enumerate(y):
-    if v <=4:
-        y[i] = 0
-    elif v == 5:
-    # elif v == 6:
-         y[i] = 1
-    elif v == 6:
-        y[i] = 1
-    else:
-        y[i] = 2
-
-# 이거보다 위에가 더 나음.
-# for i, v in enumerate(y):
-#     if v <=4:
-#         y[i] = 0
-#     # elif v == 5:
-#     elif v == 6:
-#         y[i] = 1
-#     elif v == 7:
-#         y[i] = 1
-#     else:
-#         y[i] = 2
-
-print(y.value_counts().sort_index())
-# 0     212
-# 1    1788
-# 2    3497
-# Name: quality, dtype: int64
+y = train_csv['quality'] -3
 
 # 데이터 나누기
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.1, random_state=random_state, stratify=y)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=random_state, stratify=y)
+
+smote = SMOTE(random_state=random_state, k_neighbors=1)
+x_train, y_train = smote.fit_resample(x_train, y_train)
 
 # 데이터 스케일링
 scaler = StandardScaler()
 x_train = scaler.fit_transform(x_train)
 x_test = scaler.transform(x_test)
 
+import xgboost as xgb
+early_stop = xgb.callback.EarlyStopping(
+    rounds=50,
+    metric_name='mlogloss', 
+    data_name='validation_0',
+)
+
+
 # 2. 모델
-model = XGBClassifier(random_state=random_state)
+model = XGBClassifier(
+    n_estimators = 500,
+    learning_rate=0.1,
+    max_depth = 6,
+    gamma = 0,
+    min_child_weight= 0,
+    subsample= 0.8,
+    colsample_bytree=0.8,
+    callbacks=[early_stop], 
+    random_state=random_state,
+    )
 
 # 3. 훈련
-model.fit(x_train, y_train)
+model.fit(x_train, y_train,
+         eval_set=[(x_test, y_test)],
+         verbose=1,
+          )
 
 # 4. 평가
 results = model.score(x_test, y_test)
@@ -116,10 +100,6 @@ acc = accuracy_score(y_test, y_predict)
 print("accuracy_score:", acc)
 print('F1 : ', f1_score(y_test, y_predict, average='macro'))
 
-###### 원판 (7개)
-# accuracy_score: 0.66
-# F1 :  0.3829761515523174
-
-###### y클래스 변경 후 (3개 일때.)
-# accuracy_score: 0.8354545454545454
-# F1 :  0.5528689039718451
+# model.score: 0.6572727272727272
+# accuracy_score: 0.6572727272727272
+# F1 :  0.3927107272869815
