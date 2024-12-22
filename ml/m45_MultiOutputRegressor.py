@@ -131,7 +131,7 @@ y_pred = model.predict(x)
 print(model.__class__.__name__, '스코어 : ',
       round(mean_absolute_error(y, y_pred), 4))  # MultiOutputRegressor 스코어 :  8.91
 print(model.predict([[2, 110, 43]]))             # [[178.6  35.4  56.1]]
-# MultiOutputRegressor안감싸면 에러남. ValueError: y should be a 1d array, got an array of shape (20, 3) instead.
+# MultiOutputRegressor안감싸면 에러남. ValueError: y should be a 1d array, got an array of shape (20, 3) instead. 요 에러남.
 
 model =MultiOutputRegressor(CatBoostRegressor())
 model.fit(x, y)
@@ -144,5 +144,5 @@ model =CatBoostRegressor(loss_function='MultiRMSE')
 model.fit(x, y)
 y_pred = model.predict(x)
 print(model.__class__.__name__, '스코어 : ',
-      round(mean_absolute_error(y, y_pred), 4))  # MultiOutputRegressor 스코어 :  0.2154
-print(model.predict([[2, 110, 43]]))             # [[138.97756017  33.09066774  67.61547996]]
+      round(mean_absolute_error(y, y_pred), 4))  # CatBoostRegressor 스코어 :  0.0638
+print(model.predict([[2, 110, 43]]))             # [[138.21649371  32.99740595  67.8741709 ]]

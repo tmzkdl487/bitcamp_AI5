@@ -128,7 +128,7 @@ from sklearn.metrics import classification_report, accuracy_score
 # print(accuracy_score(y, y_pred))
 # print(model.predict([[0.195983, 0.045227, 0.325330]]))             # 
 
-# model =CatBoostClassifier(loss_function='MultiRMSE')
+# model =CatBoostClassifier(loss_function='MultiRMSE') # <- classifier은 loss_function='MultiRMSE'을 지원 안해줌.
 # model.fit(x, y)
 # y_pred = model.predict(x)
 # print("Classification Accuracy:")

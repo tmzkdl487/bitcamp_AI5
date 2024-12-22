@@ -36,7 +36,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 def train(model, criterion, optimizer, x, y):
     model.train()  # 모델을 학습 모드로 설정
-    optimizer.zero_grad()
+    optimizer.zero_grad()  # 각 배치마다 기울기를 초기화하여 기울기 누적에 의한 문제 해결 (기울기 : loss를 가중치로 미분한 값)
     
     hypothesis = model(x)  # (10, 1) -> (10, 3)
     loss = criterion(hypothesis, y)  # 손실 계산
