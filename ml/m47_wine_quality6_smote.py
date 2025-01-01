@@ -54,9 +54,9 @@ x = train_csv.drop(['quality'], axis=1)
 y = train_csv['quality'] -3
 
 # 데이터 나누기
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=random_state, stratify=y)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.1, random_state=random_state, stratify=y)
 
-smote = SMOTE(random_state=random_state, k_neighbors=1)
+smote = SMOTE(random_state=random_state, k_neighbors=2)
 x_train, y_train = smote.fit_resample(x_train, y_train)
 
 # 데이터 스케일링
@@ -70,7 +70,6 @@ early_stop = xgb.callback.EarlyStopping(
     metric_name='mlogloss', 
     data_name='validation_0',
 )
-
 
 # 2. 모델
 model = XGBClassifier(
@@ -100,6 +99,6 @@ acc = accuracy_score(y_test, y_predict)
 print("accuracy_score:", acc)
 print('F1 : ', f1_score(y_test, y_predict, average='macro'))
 
-# model.score: 0.6572727272727272
-# accuracy_score: 0.6572727272727272
-# F1 :  0.3927107272869815
+# model.score: 0.7018181818181818
+# accuracy_score: 0.7018181818181818
+# F1 :  0.5146284798529924

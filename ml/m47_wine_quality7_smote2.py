@@ -1,11 +1,6 @@
 # [맹그러봐] 스모트 써서 비교해봐!!!
 # y 클래스를 3개로 축소한 것을 smote 처리
 
-# [맹그러봐] 스모트 써서 비교해봐!!!
-# y 클래스 7개까지 그대로
-
-# m47_wine_quality1_선생님버전.py 카피
-
 import numpy as np
 import pandas as pd
 from xgboost import XGBClassifier
@@ -118,6 +113,6 @@ print('F1 : ', f1_score(y_test, y_predict, average='macro'))
 # accuracy_score: 0.8345454545454546
 # F1 :  0.5915091188695696
 
-# model.score: 0.84
-# accuracy_score: 0.84
-# F1 :  0.6152271508674355
+# model.score: 0.8490909090909091
+# accuracy_score: 0.8490909090909091
+# F1 :  0.6226856254434029

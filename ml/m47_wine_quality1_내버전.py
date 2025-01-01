@@ -15,7 +15,7 @@ path = 'C:/ai5/_data/kaggle/wine/wine_quality/'
 # [맹그러봐 ] : y는 quality
 
 #1. 데이터
-random_state= 36
+random_state= 96
 
 train_csv = pd.read_csv(path + "train.csv", index_col=0)
 test_csv = pd.read_csv(path + "test.csv", index_col=0)

@@ -25,6 +25,8 @@ y_train = np.load(np_path + 'keras45_gender_04_y_train.npy')
 x_test = np.load(np_path + 'keras45_gender_04_x_test.npy')
 y_test = np.load(np_path + 'keras45_gender_04_y_test.npy')
 
+print(x_train.shape, x_test.shape)  # (27167, 100, 100, 3) (160, 100, 100, 1)
+
 x_train, x_test, y_train, y_test = train_test_split(x_train, y_train, train_size=0.9, 
                                                     shuffle= True,
                                                     random_state=911)
