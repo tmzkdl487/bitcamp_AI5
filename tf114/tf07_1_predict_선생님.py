@@ -59,3 +59,5 @@ with tf.compat.v1.Session() as sess:
     
     y_predict2 = x_test_ph * w_val + b_val
     print('[6,7,8]의 예측: ', sess.run(y_predict2, feed_dict={x_test_ph: x_test}))    # [6,7,8]의 예측:  [12.9969635 14.995691  16.994421 ]
+    
+    

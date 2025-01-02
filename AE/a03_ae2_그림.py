@@ -1,5 +1,3 @@
-# a03_ae2_그림.py 카피
-
 import numpy as np
 from tensorflow.keras.datasets import mnist
 import tensorflow as tf

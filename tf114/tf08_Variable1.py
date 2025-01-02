@@ -23,12 +23,9 @@ sess.close()
 sess = tf.compat.v1.InteractiveSession()
 sess.run(tf.compat.v1.global_variables_initializer())
 ccc = 변수.eval()
-print('ccc : ', ccc)
+print('ccc : ', ccc)    # ccc :  [ 2.2086694  -0.73225045]
 sess.close()
 
-
-
-
-
-
-
+# aaa :  [ 2.2086694  -0.73225045]
+# bbb :  [ 2.2086694  -0.73225045]
+# ccc :  [ 2.2086694  -0.73225045]

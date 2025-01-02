@@ -19,3 +19,8 @@ print("덧셈 (node3):", sess.run(node3))
 print("뺄셈 (node4):", sess.run(node4))
 print("곱셈 (node5):", sess.run(node5))
 print("나눗셈 (node6):", sess.run(node6))
+
+# 덧셈 (node3): 5.0
+# 뺄셈 (node4): -1.0
+# 곱셈 (node5): 6.0
+# 나눗셈 (node6): 0.6666667

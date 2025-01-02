@@ -30,11 +30,3 @@ for step in range(epochs):
     if step % 20 == 0:    
         print(step, sess.run(loss), sess.run(w), sess.run(b))   # <- verbose임.
 sess.close()    # 메모리 많이 차이하니까. 원래 sess.run하고 sess.close 해줘야됨.
-
-
-
-
-    
-    
-
-    
