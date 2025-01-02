@@ -1,5 +1,5 @@
 import tensorflow as tf
-print(tf.__version__) # 2.16.2 텐서플로우 버전 이였는데 이제 2.7.4버전이다.
+print(tf.__version__) # 2.16.2 텐서플로우 버전 이였는데 이제 최신 버전은 2.7.4
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
@@ -16,7 +16,7 @@ model = Sequential()
 model.add(Dense(1, input_dim=1)) # 인풋 한 덩어리, 아웃풋 한 덩어리
 
 #3. 컴파일, 훈련
-model.compile(loss='mse', optimizer='adam') #컴퓨터가 알아먹게 컴파일한다.
+model.compile(loss='mse', optimizer='adam') #컴퓨터가 알수있게 컴파일한다.
 model.fit(x, y, epochs=10)
 
 #4. 평가, 예측
