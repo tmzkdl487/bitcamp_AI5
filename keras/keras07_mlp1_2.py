@@ -15,7 +15,7 @@ x = x.T
 print(x.shape) # (5, 2)
 print(y.shape) # (5,)
 
-"""
+
 #2. 모델
 model = Sequential()
 model.add(Dense(10, input_dim=2))
