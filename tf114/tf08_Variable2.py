@@ -48,16 +48,16 @@ with tf.compat.v1.Session() as sess:
     x_test = [6,7,8]
     
 ###### 1. Session() // sess.run(변수) #######
-    # y_predict = sess.run(hypothesis, feed_dict={x: x_test})
-    # print('[6,7,8]의 예측:', y_predict)     # [6,7,8]의 예측: [13.004351 15.006171 17.007992]
-    # sess.close()
+    y_predict = sess.run(hypothesis, feed_dict={x: x_test})
+    print('[6,7,8]의 예측:', y_predict)     # [6,7,8]의 예측: [13.004351 15.006171 17.007992]
+    sess.close()
 
 #  ###### 2. Session() // sess.eval(session=sess) #######
-#     y_predict = hypothesis.eval(feed_dict={x: x_test}, session=sess)
-#     print('[6,7,8]의 예측:', y_predict) # [6,7,8]의 예측: [13.004351 15.006171 17.007992]
-#     sess.close()
+    y_predict = hypothesis.eval(feed_dict={x: x_test}, session=sess)
+    print('[6,7,8]의 예측:', y_predict) # [6,7,8]의 예측: [13.004351 15.006171 17.007992]
+    sess.close()
 
 # ###### 3. InteractiveSession() // 변수.eval() #######
     y_predict = hypothesis.eval(feed_dict={x: x_test})
-    print('[6,7,8]의 예측:', y_predict)
+    print('[6,7,8]의 예측:', y_predict) # [6,7,8]의 예측: [13.004351 15.006171 17.007992]
     sess.close()
