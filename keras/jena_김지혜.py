@@ -111,4 +111,4 @@ print("range(144)개의 결과 : ", y_pred)
 print("로스는 : " , results[0])
 print("RMSE : ", rmse)
 
-# RMSE   1.4012267566686762
+# RMSE   1.401226756668676
